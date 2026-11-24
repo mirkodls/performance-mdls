@@ -1,0 +1,1381 @@
+<title>PERFORMANCE by mdls</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="PERFORMANCE by mdls sistema Windows 10 e 11 per giocare. Ogni modifica si annulla con Torna come prima. Beta gratuita, Pro facoltativo.">
+<meta name="theme-color" content="#EEF0FB">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 58'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23C9A2FF'/%3E%3Cstop offset='.45' stop-color='%23FF9ECF'/%3E%3Cstop offset='.75' stop-color='%23FFE3A3'/%3E%3Cstop offset='1' stop-color='%239EF0E0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M32 5 59 53H5Z' fill='url(%23g)' stroke='%237B5CE6' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>
+  /* Lingua iniziale: italiano se il browser e in italiano, altrimenti inglese. Niente salvataggi (niente cookie, niente localStorage). */
+  (function () {
+    var l = ((navigator.languages && navigator.languages[0]) || navigator.language || "it").toLowerCase();
+    var scelta = l.indexOf("it") === 0 ? "it" : "en";
+    document.documentElement.setAttribute("data-lingua", scelta);
+    document.documentElement.lang = scelta;
+  })();
+</script>
+<style>
+  /* Font Archivo (Omnibus-Type, licenza SIL Open Font License 1.1), incorporato: nessuna richiesta a server esterni. */
+  @font-face {
+    font-family: "Archivo";
+    src: url(data:font/woff2;base64,__FONT_BASE64__) format("woff2");
+    font-weight: 100 900;
+    font-stretch: 62% 125%;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* Impianto: carta lilla fredda e inchiostro blu notte, gli stessi del programma. Un solo oggetto in rilievo (il registro
+     prima/dopo nell'apertura), una sola fascia scura (Mai). Archivo in tre larghezze: larga per i titoli, normale per il testo,
+     stretta per i valori. */
+  :root {
+    --carta: #EEF0FB;
+    --foglio: #FAFAFE;
+    --foglio-2: #E6E8F5;
+    --inchiostro: #1B2140;
+    --inchiostro-2: #3E4566;
+    --inchiostro-3: #575D7E;
+    --linea: #D6D9EA;
+    --linea-forte: #8A8FA8;
+    --azione: #5B5BD6;
+    --azione-sopra: #4646C4;
+    --su-azione: #FFFFFF;
+    --indaco: #4B4BC8;
+    --indaco-tenue: #E8E4FF;
+    --verde: #0F6B4F;
+    --verde-tenue: #E2F4EC;
+    --arancio: #7A4E00;
+    --arancio-tenue: #FFF0D2;
+    --notte: #1B2140;
+    --su-notte: #EEF0FB;
+    --su-notte-2: #B4B9D6;
+    --linea-notte: #353C66;
+    --fuoco: #4B4BC8;
+    --ombra: rgba(27, 33, 64, 0.32);
+    --smart: #1A5FB4;
+    --su-smart: #FFFFFF;
+    --smart-tenue: rgba(255, 255, 255, 0.38);
+    --marcatore: #FFC94D;
+    --segnaposto: #B45309;
+    --iride-bordo: #7B5CE6;
+
+    --f-testo: "Archivo", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --largo: 118%;
+    --largo-max: 125%;
+    --stretto: 78%;
+
+    --t-xs: 0.8125rem;
+    --t-s: 0.9375rem;
+    --t-m: 1.0625rem;
+    --t-l: 1.3125rem;
+    --t-xl: 1.75rem;
+    --t-2xl: clamp(2rem, 1.2rem + 3vw, 3rem);
+    --t-eroe: clamp(2.35rem, 1.1rem + 5.4vw, 5.4rem);
+    --t-mai: clamp(5rem, 1rem + 11vw, 12rem);
+
+    --s1: 0.5rem;
+    --s2: 1rem;
+    --s3: 1.5rem;
+    --s4: 2.5rem;
+    --s5: 4rem;
+    --s6: clamp(4.5rem, 3rem + 5vw, 8rem);
+
+    --gronda-sx: max(16px, 4vw, env(safe-area-inset-left, 0px));
+    --gronda-dx: max(16px, 4vw, env(safe-area-inset-right, 0px));
+    --curva: cubic-bezier(0.22, 0.8, 0.22, 1);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --carta: #141A33;
+      --foglio: #1C2345;
+      --foglio-2: #252D55;
+      --inchiostro: #ECEEFA;
+      --inchiostro-2: #C3C7E0;
+      --inchiostro-3: #A3A9C8;
+      --linea: #2F3760;
+      --linea-forte: #6B7299;
+      --azione: #A1A1F8;
+      --azione-sopra: #B7B7FB;
+      --su-azione: #141A33;
+      --indaco: #B6B6FB;
+      --indaco-tenue: #2C2F66;
+      --verde: #84DDB9;
+      --verde-tenue: #173B33;
+      --arancio: #F2C27A;
+      --arancio-tenue: #3A2D14;
+      --notte: #0E1329;
+      --su-notte: #ECEEFA;
+      --su-notte-2: #A9AED0;
+      --linea-notte: #283059;
+      --fuoco: #B6B6FB;
+      --ombra: rgba(0, 0, 0, 0.55);
+      --segnaposto: #F59E0B;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --carta: #141A33;
+    --foglio: #1C2345;
+    --foglio-2: #252D55;
+    --inchiostro: #ECEEFA;
+    --inchiostro-2: #C3C7E0;
+    --inchiostro-3: #A3A9C8;
+    --linea: #2F3760;
+    --linea-forte: #6B7299;
+    --azione: #A1A1F8;
+    --azione-sopra: #B7B7FB;
+    --su-azione: #141A33;
+    --indaco: #B6B6FB;
+    --indaco-tenue: #2C2F66;
+    --verde: #84DDB9;
+    --verde-tenue: #173B33;
+    --arancio: #F2C27A;
+    --arancio-tenue: #3A2D14;
+    --notte: #0E1329;
+    --su-notte: #ECEEFA;
+    --su-notte-2: #A9AED0;
+    --linea-notte: #283059;
+    --fuoco: #B6B6FB;
+    --ombra: rgba(0, 0, 0, 0.55);
+    --segnaposto: #F59E0B;
+    color-scheme: dark;
+  }
+
+  /* Lingue: italiano visibile se non e scelto l'inglese (anche senza JavaScript). */
+  html:not([data-lingua="en"]) [data-l="en"],
+  html[data-lingua="en"] [data-l="it"] { display: none !important; }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--carta);
+    color: var(--inchiostro);
+    font-family: var(--f-testo);
+    font-size: var(--t-m);
+    line-height: 1.6;
+    font-stretch: 100%;
+    font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg { max-width: 100%; }
+  [hidden] { display: none !important; }
+  h1, h2, h3, p, ol, ul, dl, dd, figure { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 3px solid var(--fuoco);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .eroe-testo, .misura-testo, .scarica-box, .guida, .cosa-fa-testa, .piano, .prova, .prova-testa,
+  .banco, .prezzi-testa, .piano-coda, .requisiti, .piede .riga { grid-template-columns: minmax(0, 1fr); }
+  .solo-lettori {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  /* Contenitore unico: la gronda laterale sta solo qui. */
+  .riga {
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-left: var(--gronda-sx);
+    padding-right: var(--gronda-dx);
+  }
+
+  /* Titoli */
+  .titolo-sezione {
+    font-size: var(--t-2xl);
+    font-stretch: var(--largo);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .attacco {
+    font-size: var(--t-l);
+    line-height: 1.5;
+    color: var(--inchiostro-2);
+    max-width: 34em;
+    text-wrap: pretty;
+  }
+
+  /* Tasti */
+  .tasto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    min-height: 48px;
+    padding: 0.8rem 1.3rem;
+    border-radius: 11px;
+    border: 1.5px solid transparent;
+    font: inherit;
+    font-size: var(--t-m);
+    font-weight: 650;
+    font-stretch: 106%;
+    line-height: 1.15;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .tasto-pieno { background: var(--azione); color: var(--su-azione); }
+  .tasto-pieno:hover { background: var(--azione-sopra); }
+  .tasto-vuoto { background: transparent; color: var(--inchiostro); border-color: var(--inchiostro); }
+  .tasto-vuoto:hover { background: var(--foglio-2); }
+  .tasto:disabled, .tasto[aria-disabled="true"] { opacity: 0.42; cursor: not-allowed; }
+  .tasto-pieno:disabled:hover { background: var(--azione); }
+  .tasto-vuoto:disabled:hover { background: transparent; }
+  .tasto-grande { min-height: 56px; padding: 1rem 1.6rem; font-size: var(--t-l); border-radius: 13px; }
+  .tasto svg { width: 1.15em; height: 1.15em; flex: none; }
+
+  /* Segnaposto (da togliere prima di andare online): bordo tratteggiato arancio + nota. */
+  .segnaposto {
+    outline: 1.5px dashed var(--segnaposto);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .segnaposto::after {
+    content: "segnaposto";
+    margin-left: 0.45em;
+    padding: 0.05em 0.4em;
+    border-radius: 4px;
+    font-size: 0.72em;
+    font-weight: 600;
+    color: var(--segnaposto);
+    border: 1px solid var(--segnaposto);
+    vertical-align: 0.12em;
+  }
+  .tasto.segnaposto { position: relative; }
+  .tasto.segnaposto::after {
+    position: absolute; top: -0.75rem; right: -0.5rem; margin: 0;
+    font-size: 0.7rem; background: var(--carta); color: var(--segnaposto); border-color: var(--segnaposto);
+  }
+
+  /* Testata */
+  .testata .riga {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s2);
+    padding-block: 1.1rem;
+  }
+  .marchio {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    min-width: 0;
+  }
+  .marchio svg { width: 30px; height: 27px; flex: none; }
+  .marchio-nome {
+    font-weight: 800;
+    font-stretch: var(--largo-max);
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .marchio-di { font-weight: 450; font-stretch: 100%; color: var(--inchiostro-3); margin-left: 0.3em; letter-spacing: 0; }
+  .bollino-beta {
+    font-size: var(--t-xs);
+    font-weight: 600;
+    padding: 0.05rem 0.5rem;
+    border-radius: 999px;
+    background: var(--indaco-tenue);
+    color: var(--indaco);
+  }
+  .navigazione { display: flex; align-items: center; gap: var(--s3); }
+  .navigazione-voci { display: flex; gap: var(--s3); }
+  .navigazione-voci a {
+    text-decoration: none;
+    color: var(--inchiostro-2);
+    font-size: var(--t-s);
+    font-weight: 500;
+  }
+  .navigazione-voci a:hover { color: var(--inchiostro); text-decoration: underline; text-underline-offset: 0.25em; }
+  .lingue {
+    display: inline-flex;
+    border: 1.5px solid var(--linea-forte);
+    border-radius: 9px;
+    padding: 2px;
+  }
+  .lingue button {
+    font: inherit;
+    font-size: var(--t-xs);
+    font-weight: 650;
+    font-stretch: 110%;
+    min-width: 40px;
+    min-height: 32px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--inchiostro-2);
+    cursor: pointer;
+  }
+  .lingue button[aria-pressed="true"] { background: var(--inchiostro); color: var(--carta); }
+  .testata .tasto { min-height: 40px; padding: 0.5rem 0.95rem; font-size: var(--t-s); }
+
+  /* Apertura */
+  .eroe { padding-block: clamp(2rem, 1rem + 4vw, 4.5rem) var(--s6); }
+  .eroe h1 {
+    font-size: var(--t-eroe);
+    font-stretch: var(--largo);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    max-width: 15.5em;
+    text-wrap: balance;
+  }
+  .eroe h1 .frase { display: block; }
+  .eroe-corpo {
+    margin-top: clamp(2rem, 1rem + 3vw, 3.5rem);
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(2rem, 1rem + 4vw, 5rem);
+    align-items: start;
+  }
+  .eroe-testo { display: grid; gap: var(--s3); padding-top: 0.4rem; }
+  .eroe-azioni { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s3); }
+  .eroe-azioni a.collegamento { font-weight: 600; text-underline-offset: 0.25em; }
+  .nota-piccola { font-size: var(--t-s); color: var(--inchiostro-3); }
+
+  /* Registro prima/dopo (l'unico oggetto in rilievo della pagina) */
+  .registro {
+    background: var(--foglio);
+    border: 1px solid var(--linea);
+    border-radius: 20px;
+    box-shadow: 0 1px 0 var(--linea), 0 30px 60px -34px var(--ombra);
+    overflow: hidden;
+    position: relative;
+  }
+  .registro-avanzamento {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--azione);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  .registro[data-stato="ottimizzato"] .registro-avanzamento { animation: avanza 0.9s var(--curva) both; }
+  .registro[data-stato="ripristinato"] .registro-avanzamento { animation: torna 0.9s var(--curva) both; }
+  @keyframes avanza { 0% { transform: scaleX(0); opacity: 1; } 80% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+  @keyframes torna { 0% { transform: scaleX(1); transform-origin: right center; opacity: 1; } 80% { transform: scaleX(0); transform-origin: right center; opacity: 1; } 100% { transform: scaleX(0); opacity: 0; } }
+
+  .registro-testa {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid var(--linea);
+    font-size: var(--t-s);
+    color: var(--inchiostro-2);
+  }
+  .registro-testa svg { width: 22px; height: 20px; flex: none; }
+  .bollino-esempio {
+    margin-left: auto;
+    font-size: var(--t-xs);
+    font-weight: 600;
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--linea-forte);
+    color: var(--inchiostro-2);
+    white-space: nowrap;
+  }
+  .registro table { width: 100%; border-collapse: collapse; }
+  .registro th, .registro td { text-align: left; vertical-align: middle; }
+  .registro thead th {
+    font-size: var(--t-xs);
+    font-weight: 600;
+    color: var(--inchiostro-3);
+    padding: 0.85rem 1.4rem 0.4rem;
+  }
+  .registro tbody th {
+    font-weight: 500;
+    font-size: var(--t-s);
+    line-height: 1.35;
+    padding: 0.8rem 1rem 0.8rem 1.4rem;
+    width: 46%;
+  }
+  .registro tbody td { padding: 0.8rem 1.4rem 0.8rem 0; }
+  .registro tbody tr + tr > * { border-top: 1px solid var(--linea); }
+  .registro thead th + th { padding-left: 0; }
+  .registro thead th:last-child, .registro tbody td:last-child { padding-right: 1.4rem; }
+
+  .valore {
+    display: block;
+    height: 1.5em;
+    overflow: hidden;
+    font-stretch: var(--stretto);
+    font-weight: 600;
+    font-size: var(--t-m);
+    line-height: 1.5em;
+    font-variant-numeric: tabular-nums;
+  }
+  .valore-binario {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s var(--curva);
+    transition-delay: calc(var(--i, 0) * 75ms);
+  }
+  .valore-binario > span { display: block; height: 1.5em; white-space: nowrap; }
+  .valore-binario > span:last-child { color: var(--indaco); }
+  .registro[data-stato="ottimizzato"] .valore-binario { transform: translateY(-1.5em); }
+  .registro[data-stato="ripristinato"] .valore-binario { transition-delay: calc((5 - var(--i, 0)) * 75ms); }
+
+  .salvato { display: block; min-height: 1.75rem; font-size: var(--t-xs); font-weight: 600; }
+  .salvato > span { display: none; }
+  .registro:not([data-stato]) .salvato-vuoto,
+  .registro[data-stato="iniziale"] .salvato-vuoto { display: inline; color: var(--inchiostro-3); font-weight: 500; font-size: var(--t-s); }
+  .registro[data-stato="ottimizzato"] .salvato-copia,
+  .registro[data-stato="ripristinato"] .salvato-rimesso {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 7px;
+    white-space: nowrap;
+    animation: compare 0.35s var(--curva) both;
+    animation-delay: calc(var(--i, 0) * 75ms + 180ms);
+  }
+  .registro[data-stato="ripristinato"] .salvato-rimesso { animation-delay: calc((5 - var(--i, 0)) * 75ms + 180ms); }
+  .salvato-copia { background: var(--verde-tenue); color: var(--verde); }
+  .salvato-rimesso { background: var(--indaco-tenue); color: var(--indaco); }
+  .salvato svg { width: 0.95em; height: 0.95em; flex: none; }
+  @keyframes compare { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  .registro-piede {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s2);
+    padding: 1.1rem 1.4rem 1.3rem;
+    border-top: 1px solid var(--linea);
+    background: var(--carta);
+  }
+  .registro-piede .tasto { min-height: 46px; }
+  .registro-stato {
+    flex: 1 1 14rem;
+    min-width: 0;
+    font-size: var(--t-s);
+    color: var(--inchiostro-2);
+    line-height: 1.4;
+  }
+
+  /* Sezioni */
+  .sezione { padding-block: var(--s6); }
+  .sezione + .sezione { padding-top: 0; }
+
+  /* Cosa fa */
+  .cosa-fa {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--s4) clamp(2rem, 1rem + 4vw, 5rem);
+    align-items: start;
+  }
+  .cosa-fa-testa { position: sticky; top: var(--s3); display: grid; gap: var(--s2); }
+  .legenda { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: var(--s1); }
+  .funzioni { display: grid; }
+  .funzione {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.5rem var(--s3);
+    padding-block: 1.6rem;
+    border-top: 1px solid var(--linea);
+  }
+  .funzione:first-child { border-top: 0; padding-top: 0; }
+  .funzione h3 {
+    font-size: var(--t-l);
+    font-stretch: 112%;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .funzione p { grid-column: 1 / -1; color: var(--inchiostro-2); max-width: 38em; text-wrap: pretty; }
+  .funzione .etichette { justify-content: flex-end; }
+  .etichette { display: flex; flex-wrap: wrap; gap: 0.4rem; align-content: start; }
+  .etichetta {
+    display: inline-block;
+    font-size: var(--t-xs);
+    font-weight: 600;
+    line-height: 1.3;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .etichetta-gratis { background: var(--verde-tenue); color: var(--verde); }
+  .etichetta-pro { background: var(--inchiostro); color: var(--carta); }
+  .etichetta-prova { border: 1.5px dashed var(--indaco); color: var(--indaco); padding: calc(0.2rem - 1.5px) calc(0.6rem - 1.5px); }
+
+  /* Misura */
+  .misura {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: var(--s4) clamp(2rem, 1rem + 4vw, 5rem);
+    align-items: center;
+  }
+  .misura-testo { display: grid; gap: var(--s3); }
+  .misura-testo p { max-width: 36em; color: var(--inchiostro-2); }
+  .banco { display: grid; gap: 0.8rem; }
+  .banco-griglia {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.6rem;
+    align-items: stretch;
+  }
+  .banco-griglia .vuoto { min-width: 0; }
+  .banco-colonna, .banco-riga {
+    font-size: var(--t-xs);
+    font-weight: 600;
+    color: var(--inchiostro-3);
+    display: flex;
+    align-items: center;
+  }
+  .banco-colonna { padding-left: 0.2rem; }
+  .banco-riga { padding-right: 0.4rem; justify-content: flex-end; text-align: right; }
+  .banco-casella {
+    min-height: 5.25rem;
+    border: 1.5px solid var(--linea-forte);
+    border-radius: 12px;
+    padding: 0.75rem 0.85rem;
+    display: grid;
+    align-content: space-between;
+    gap: 0.4rem;
+    background: var(--foglio);
+  }
+  .banco-casella strong { font-stretch: var(--stretto); font-weight: 650; font-size: 1.6rem; line-height: 1; color: var(--inchiostro-3); }
+  .banco-casella.da-fare { border-style: dashed; background: transparent; }
+  .banco-casella .etichetta { justify-self: start; }
+  .etichetta-fatto { background: var(--verde-tenue); color: var(--verde); }
+  .etichetta-dafare { background: var(--arancio-tenue); color: var(--arancio); }
+  .banco figcaption { font-size: var(--t-s); color: var(--inchiostro-3); }
+
+  /* Mai */
+  .mai { background: var(--notte); color: var(--su-notte); }
+  .mai .riga {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--s4) clamp(2rem, 1rem + 4vw, 5rem);
+    padding-block: var(--s6);
+    align-items: start;
+  }
+  .mai-parola {
+    font-size: var(--t-mai);
+    font-stretch: var(--largo-max);
+    font-weight: 900;
+    line-height: 0.8;
+    letter-spacing: -0.045em;
+    margin-left: -0.04em;
+  }
+  .mai-elenco { display: grid; }
+  .mai-elenco li {
+    padding-block: 1.05rem;
+    border-top: 1px solid var(--linea-notte);
+    font-size: var(--t-l);
+    line-height: 1.4;
+    font-weight: 500;
+    text-wrap: pretty;
+  }
+  .mai-elenco li:first-child { border-top: 0; padding-top: 0.4rem; }
+  .mai-elenco small { display: block; margin-top: 0.3rem; font-size: var(--t-s); font-weight: 400; color: var(--su-notte-2); }
+
+  /* Prezzi */
+  .prezzi-testa { display: grid; gap: var(--s2); margin-bottom: var(--s4); }
+  .piani {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--s3);
+    align-items: stretch;
+  }
+  .piano { display: grid; gap: var(--s3); align-content: start; padding: clamp(1.5rem, 1rem + 2vw, 2.5rem); border-radius: 20px; }
+  .piano-gratis { border: 1.5px solid var(--linea-forte); }
+  .piano-pro { background: var(--foglio); border: 1px solid var(--linea); box-shadow: 0 1px 0 var(--linea); }
+  .piano-nome { font-size: var(--t-xl); font-stretch: var(--largo); font-weight: 800; line-height: 1.1; }
+  .piano-prezzo {
+    font-size: clamp(3rem, 2rem + 4vw, 5.25rem);
+    font-stretch: var(--largo-max);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  .piano-prezzo-nota { font-size: var(--t-m); color: var(--inchiostro-2); margin-top: 0.6rem; }
+  .piano-elenco { display: grid; gap: 0.6rem; }
+  .piano-elenco li { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr); gap: 0.6rem; line-height: 1.45; }
+  .piano-elenco svg { width: 1.1rem; height: 1.1rem; margin-top: 0.2rem; color: var(--verde); }
+  .piano-coda { display: grid; gap: 0.75rem; justify-items: start; padding-top: var(--s1); }
+  .piano-coda p { font-size: var(--t-s); color: var(--inchiostro-3); max-width: 34em; }
+
+  .prova {
+    margin-top: var(--s3);
+    border-radius: 20px;
+    border: 1.5px dashed var(--indaco);
+    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    display: grid;
+    gap: var(--s3);
+  }
+  .prova-testa { display: grid; gap: 0.5rem; }
+  .prova-testa h3 { font-size: var(--t-xl); font-stretch: var(--largo); font-weight: 800; line-height: 1.1; }
+  .prova-testa p { color: var(--inchiostro-2); }
+  .prova-punti { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s3) var(--s4); }
+  .prova-punti h4 { margin: 0 0 0.35rem; font-size: var(--t-m); font-stretch: 108%; font-weight: 700; }
+  .prova-punti p { font-size: var(--t-s); color: var(--inchiostro-2); line-height: 1.55; }
+
+  /* Scarica */
+  .scarica {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--s4) clamp(2rem, 1rem + 4vw, 5rem);
+    align-items: start;
+  }
+  .scarica-box { display: grid; gap: var(--s3); }
+  .file-nome {
+    font-stretch: var(--stretto);
+    font-weight: 600;
+    font-size: var(--t-m);
+    overflow-wrap: anywhere;
+  }
+  .requisiti { display: grid; gap: 0.35rem; font-size: var(--t-s); color: var(--inchiostro-2); }
+  .solo-qui {
+    font-size: var(--t-s);
+    line-height: 1.5;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    background: var(--foglio-2);
+  }
+  .solo-qui strong { font-weight: 700; }
+  .guida { display: grid; gap: var(--s3); }
+  .guida h3 { font-size: var(--t-xl); font-stretch: 112%; font-weight: 750; line-height: 1.2; text-wrap: balance; }
+  .guida > p { color: var(--inchiostro-2); max-width: 36em; }
+  .passi { display: grid; gap: 0.8rem; counter-reset: passo; }
+  .passi li {
+    counter-increment: passo;
+    display: grid;
+    grid-template-columns: 2.1rem minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: baseline;
+  }
+  .passi li::before {
+    content: counter(passo);
+    display: inline-grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--inchiostro);
+    font-weight: 700;
+    font-size: var(--t-s);
+    font-variant-numeric: tabular-nums;
+    transform: translateY(-0.1rem);
+  }
+  .file-in-riga { font-stretch: var(--stretto); font-weight: 600; overflow-wrap: anywhere; }
+
+  /* Disegno della finestra blu (schema, non una copia) */
+  .schema { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); }
+  .schema figcaption { grid-column: 1 / -1; font-size: var(--t-xs); color: var(--inchiostro-3); }
+  .finestra-blu {
+    position: relative;
+    background: var(--smart);
+    color: var(--su-smart);
+    border-radius: 6px;
+    padding: 1rem 1rem 0.9rem;
+    min-height: 11.5rem;
+    display: grid;
+    align-content: start;
+    gap: 0.55rem;
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+  .finestra-blu b { font-size: 0.98rem; font-weight: 650; line-height: 1.2; }
+  .barretta { height: 0.45rem; border-radius: 2px; background: var(--smart-tenue); }
+  .barretta.corta { width: 62%; }
+  .finestra-collegamento { justify-self: start; text-decoration: underline; text-underline-offset: 0.2em; position: relative; }
+  .finestra-tasti { display: flex; justify-content: flex-end; gap: 0.45rem; margin-top: auto; padding-top: 0.5rem; }
+  .finestra-tasti > span { border: 1.5px solid var(--su-smart); padding: 0.3rem 0.55rem; font-size: 0.74rem; position: relative; white-space: nowrap; }
+  .cerchio {
+    position: absolute;
+    inset: -0.7rem -0.9rem;
+    width: calc(100% + 1.8rem);
+    height: calc(100% + 1.4rem);
+    max-width: none;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .cerchio path { fill: none; stroke: var(--marcatore); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .numero-segno {
+    position: absolute;
+    top: -1rem;
+    right: -1.5rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--marcatore);
+    color: #1B2140;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: grid;
+    place-items: center;
+  }
+
+  .avviso-sac {
+    display: grid;
+    grid-template-columns: 1.6rem minmax(0, 1fr);
+    gap: 0.8rem;
+    padding: 1.1rem 1.2rem;
+    border-radius: 14px;
+    background: var(--arancio-tenue);
+    color: var(--inchiostro);
+  }
+  .avviso-sac svg { width: 1.5rem; height: 1.5rem; color: var(--arancio); margin-top: 0.1rem; }
+  .avviso-sac h4 { margin: 0 0 0.3rem; font-size: var(--t-m); font-weight: 700; }
+  .avviso-sac p { font-size: var(--t-s); line-height: 1.55; }
+
+  /* Domande */
+  .domande { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--s4) clamp(2rem, 1rem + 4vw, 5rem); align-items: start; }
+  .domande-elenco { display: grid; }
+  .domande-elenco details { border-top: 1px solid var(--linea); }
+  .domande-elenco details:last-child { border-bottom: 1px solid var(--linea); }
+  .domande-elenco summary {
+    list-style: none;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1.5rem;
+    gap: var(--s2);
+    align-items: center;
+    padding-block: 1.15rem;
+    font-size: var(--t-l);
+    font-stretch: 106%;
+    font-weight: 650;
+    line-height: 1.3;
+  }
+  .domande-elenco summary::-webkit-details-marker { display: none; }
+  .piu { position: relative; width: 1.1rem; height: 1.1rem; justify-self: end; }
+  .piu::before, .piu::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.25s var(--curva);
+  }
+  .piu::after { transform: rotate(90deg); }
+  details[open] .piu::after { transform: rotate(0deg); }
+  .domande-elenco details > div { padding-bottom: 1.3rem; max-width: 40em; color: var(--inchiostro-2); }
+  .domande-elenco details > div p + p { margin-top: 0.6rem; }
+
+  /* Piede */
+  .piede { border-top: 1px solid var(--linea); }
+  .piede .riga { padding-block: var(--s4) var(--s5); display: grid; gap: var(--s3); }
+  .piede-alto { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s2) var(--s4); }
+  .piede-voci { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; font-size: var(--t-s); }
+  .piede-voci a { color: var(--inchiostro-2); text-underline-offset: 0.25em; }
+  .piede-basso { font-size: var(--t-xs); color: var(--inchiostro-3); display: grid; gap: 0.3rem; max-width: 60em; }
+
+  /* Schermi stretti */
+  @media (max-width: 1060px) {
+    .navigazione-voci { display: none; }
+  }
+  @media (max-width: 900px) {
+    .eroe-corpo, .cosa-fa, .misura, .mai .riga, .piani, .scarica, .domande { grid-template-columns: minmax(0, 1fr); }
+    .cosa-fa-testa { position: static; }
+    .prova-punti { grid-template-columns: minmax(0, 1fr); }
+    .mai-parola { font-size: clamp(5rem, 1rem + 22vw, 10rem); }
+  }
+  @media (max-width: 560px) {
+    .testata .tasto { display: none; }
+    .marchio-di { display: none; }
+    .registro-testa { padding-inline: 1rem; }
+    .registro thead { display: none; }
+    .registro tbody tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.15rem 0.75rem; padding: 0.85rem 1rem; align-items: center; }
+    .registro tbody tr + tr { border-top: 1px solid var(--linea); }
+    .registro tbody tr + tr > * { border-top: 0; }
+    .registro tbody th { grid-column: 1 / -1; width: auto; padding: 0; }
+    .registro tbody td { padding: 0; }
+    .registro tbody td:last-child { padding-right: 0; justify-self: end; }
+    .registro-piede { padding-inline: 1rem; }
+    .registro .salvato-copia::before { content: "salvato:"; font-weight: 500; }
+    html[data-lingua="en"] .registro .salvato-copia::before { content: "saved:"; }
+    .registro .salvato-copia svg { order: -1; }
+    .registro-piede .tasto { flex: 1 1 auto; }
+    .schema { grid-template-columns: minmax(0, 1fr); }
+    .funzione { grid-template-columns: minmax(0, 1fr); }
+    .funzione .etichette { justify-content: flex-start; grid-row: 2; }
+    .banco-griglia { gap: 0.45rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .valore-binario, .piu::before, .piu::after { transition: none !important; }
+    .registro .registro-avanzamento { animation: none !important; }
+    .salvato > span { animation: none !important; }
+  }
+</style>
+<!--FINE-TESTA-->
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="iride" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#C9A2FF"/>
+      <stop offset="0.45" stop-color="#FF9ECF"/>
+      <stop offset="0.75" stop-color="#FFE3A3"/>
+      <stop offset="1" stop-color="#9EF0E0"/>
+    </linearGradient>
+    <symbol id="logo" viewBox="0 0 64 58">
+      <path d="M32 5 59 53H5Z" fill="url(#iride)" stroke="#7B5CE6" stroke-width="5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="spunta" viewBox="0 0 20 20">
+      <path d="M4 10.5l3.8 3.8L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="indietro" viewBox="0 0 20 20">
+      <path d="M7.5 5.5 4 9l3.5 3.5M4.5 9H12a4 4 0 0 1 0 8h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="giu" viewBox="0 0 24 24">
+      <path d="M12 3.5v11m0 0-4.5-4.5M12 14.5l4.5-4.5M4.5 16.5v2a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="testata">
+  <div class="riga">
+    <a class="marchio" href="#inizio">
+      <svg aria-hidden="true"><use href="#logo"/></svg>
+      <span class="marchio-nome">PERFORMANCE<span class="marchio-di">by mdls</span></span>
+      <span class="bollino-beta">beta</span>
+    </a>
+    <nav class="navigazione" aria-label="Menu">
+      <div class="navigazione-voci">
+        <a href="#cosa-fa"><span data-l="it">Cosa fa</span><span data-l="en">What it does</span></a>
+        <a href="#prezzi"><span data-l="it">Prezzi</span><span data-l="en">Pricing</span></a>
+        <a href="#domande"><span data-l="it">Domande</span><span data-l="en">Questions</span></a>
+      </div>
+      <div class="lingue" role="group" aria-label="Lingua / Language">
+        <button type="button" id="lingua-it" data-imposta-lingua="it" aria-pressed="true" aria-label="Italiano">IT</button>
+        <button type="button" id="lingua-en" data-imposta-lingua="en" aria-pressed="false" aria-label="English">EN</button>
+      </div>
+      <a class="tasto tasto-pieno" href="#scarica"><span data-l="it">Scarica la beta</span><span data-l="en">Download the beta</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="inizio">
+
+  <!-- APERTURA -->
+  <section class="eroe" aria-labelledby="titolo-eroe">
+    <div class="riga">
+      <h1 id="titolo-eroe">
+        <span data-l="it"><span class="frase">Sistema Windows per giocare.</span> <span class="frase">Se cambi idea, torna tutto com’era.</span></span>
+        <span data-l="en"><span class="frase">Tune Windows for gaming.</span> <span class="frase">Change your mind, and it all goes back.</span></span>
+      </h1>
+
+      <div class="eroe-corpo">
+        <div class="eroe-testo">
+          <p class="attacco" data-l="it">PERFORMANCE controlla il PC, ti mostra cosa si può sistemare e salva ogni valore prima di cambiarlo. Nessuna promessa sugli FPS. Li misuri tu con il bench, prima e dopo.</p>
+          <p class="attacco" data-l="en">PERFORMANCE checks your PC, shows you what can be fixed and saves every value before changing it. No promises about FPS. You measure them yourself with the bench, before and after.</p>
+          <div class="eroe-azioni">
+            <a class="tasto tasto-pieno tasto-grande" href="#scarica">
+              <svg aria-hidden="true"><use href="#giu"/></svg>
+              <span data-l="it">Scarica la beta</span><span data-l="en">Download the beta</span>
+            </a>
+            <a class="collegamento" href="#prezzi"><span data-l="it">Cosa è gratis e cosa no</span><span data-l="en">What’s free and what isn’t</span></a>
+          </div>
+          <p class="nota-piccola" data-l="it">Per Windows 10 e 11 a 64 bit. Gratis, il Pro è facoltativo. In italiano e in inglese.</p>
+          <p class="nota-piccola" data-l="en">For 64-bit Windows 10 and 11. Free, Pro is optional. In English and Italian.</p>
+        </div>
+
+        <div class="registro" id="registro" data-stato="iniziale">
+          <div class="registro-avanzamento" aria-hidden="true"></div>
+          <div class="registro-testa">
+            <svg aria-hidden="true"><use href="#logo"/></svg>
+            <span data-l="it">Come lavora, su sei impostazioni vere di Windows</span>
+            <span data-l="en">How it works, on six real Windows settings</span>
+            <span class="bollino-esempio"><span data-l="it">Esempio</span><span data-l="en">Example</span></span>
+          </div>
+          <table>
+            <caption class="solo-lettori"><span data-l="it">Esempio: impostazioni di Windows prima e dopo l’ottimizzazione, con il valore salvato.</span><span data-l="en">Example: Windows settings before and after optimizing, with the saved value.</span></caption>
+            <thead>
+              <tr>
+                <th scope="col"><span data-l="it">Impostazione</span><span data-l="en">Setting</span></th>
+                <th scope="col"><span data-l="it">Adesso</span><span data-l="en">Now</span></th>
+                <th scope="col"><span data-l="it">Salvato prima</span><span data-l="en">Saved before</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="--i:0">
+                <th scope="row"><span data-l="it">Registrazione in background di Xbox Game Bar</span><span data-l="en">Xbox Game Bar background recording</span></th>
+                <td><span class="valore"><span class="valore-binario"><span><span data-l="it">Accesa</span><span data-l="en">On</span></span><span><span data-l="it">Spenta</span><span data-l="en">Off</span></span></span></span></td>
+                <td><span class="salvato"><span class="salvato-vuoto">–</span><span class="salvato-copia"><svg aria-hidden="true"><use href="#spunta"/></svg><span data-l="it">Accesa</span><span data-l="en">On</span></span><span class="salvato-rimesso"><svg aria-hidden="true"><use href="#indietro"/></svg><span data-l="it">Rimesso</span><span data-l="en">Restored</span></span></span></td>
+              </tr>
+              <tr style="--i:1">
+                <th scope="row"><span data-l="it">Steam e Discord all’avvio di Windows</span><span data-l="en">Steam and Discord at Windows startup</span></th>
+                <td><span class="valore"><span class="valore-binario"><span><span data-l="it">Sì</span><span data-l="en">Yes</span></span><span>No</span></span></span></td>
+                <td><span class="salvato"><span class="salvato-vuoto">–</span><span class="salvato-copia"><svg aria-hidden="true"><use href="#spunta"/></svg><span data-l="it">Sì</span><span data-l="en">Yes</span></span><span class="salvato-rimesso"><svg aria-hidden="true"><use href="#indietro"/></svg><span data-l="it">Rimesso</span><span data-l="en">Restored</span></span></span></td>
+              </tr>
+              <tr style="--i:2">
+                <th scope="row"><span data-l="it">Widget e notizie</span><span data-l="en">Widgets and news</span></th>
+                <td><span class="valore"><span class="valore-binario"><span><span data-l="it">Accesi</span><span data-l="en">On</span></span><span><span data-l="it">Spenti</span><span data-l="en">Off</span></span></span></span></td>
+                <td><span class="salvato"><span class="salvato-vuoto">–</span><span class="salvato-copia"><svg aria-hidden="true"><use href="#spunta"/></svg><span data-l="it">Accesi</span><span data-l="en">On</span></span><span class="salvato-rimesso"><svg aria-hidden="true"><use href="#indietro"/></svg><span data-l="it">Rimesso</span><span data-l="en">Restored</span></span></span></td>
+              </tr>
+              <tr style="--i:3">
+                <th scope="row"><span data-l="it">App dello Store in background</span><span data-l="en">Store apps in the background</span></th>
+                <td><span class="valore"><span class="valore-binario"><span><span data-l="it">Accese</span><span data-l="en">On</span></span><span><span data-l="it">Spente</span><span data-l="en">Off</span></span></span></span></td>
+                <td><span class="salvato"><span class="salvato-vuoto">–</span><span class="salvato-copia"><svg aria-hidden="true"><use href="#spunta"/></svg><span data-l="it">Accese</span><span data-l="en">On</span></span><span class="salvato-rimesso"><svg aria-hidden="true"><use href="#indietro"/></svg><span data-l="it">Rimesso</span><span data-l="en">Restored</span></span></span></td>
+              </tr>
+              <tr style="--i:4">
+                <th scope="row"><span data-l="it">Piano energetico</span><span data-l="en">Power plan</span></th>
+                <td><span class="valore"><span class="valore-binario"><span><span data-l="it">Bilanciato</span><span data-l="en">Balanced</span></span><span><span data-l="it">Massime prestazioni</span><span data-l="en">Maximum performance</span></span></span></span></td>
+                <td><span class="salvato"><span class="salvato-vuoto">–</span><span class="salvato-copia"><svg aria-hidden="true"><use href="#spunta"/></svg><span data-l="it">Bilanciato</span><span data-l="en">Balanced</span></span><span class="salvato-rimesso"><svg aria-hidden="true"><use href="#indietro"/></svg><span data-l="it">Rimesso</span><span data-l="en">Restored</span></span></span></td>
+              </tr>
+              <tr style="--i:5">
+                <th scope="row"><span data-l="it">Effetti visivi</span><span data-l="en">Visual effects</span></th>
+                <td><span class="valore"><span class="valore-binario"><span><span data-l="it">Tutti accesi</span><span data-l="en">All on</span></span><span><span data-l="it">Prestazioni migliori</span><span data-l="en">Best performance</span></span></span></span></td>
+                <td><span class="salvato"><span class="salvato-vuoto">–</span><span class="salvato-copia"><svg aria-hidden="true"><use href="#spunta"/></svg><span data-l="it">Tutti accesi</span><span data-l="en">All on</span></span><span class="salvato-rimesso"><svg aria-hidden="true"><use href="#indietro"/></svg><span data-l="it">Rimesso</span><span data-l="en">Restored</span></span></span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="registro-piede">
+            <button type="button" class="tasto tasto-pieno" id="tasto-ottimizza"><span data-l="it">Ottimizza</span><span data-l="en">Optimize</span></button>
+            <button type="button" class="tasto tasto-vuoto" id="tasto-torna" disabled>
+              <svg aria-hidden="true"><use href="#indietro"/></svg>
+              <span data-l="it">Torna come prima</span><span data-l="en">Undo all changes</span>
+            </button>
+            <p class="registro-stato" id="registro-stato" aria-live="polite">Esempio su Windows 11. Premi Ottimizza.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COSA FA -->
+  <section class="sezione" id="cosa-fa" aria-labelledby="titolo-cosa-fa">
+    <div class="riga cosa-fa">
+      <div class="cosa-fa-testa">
+        <h2 class="titolo-sezione" id="titolo-cosa-fa"><span data-l="it">Cosa fa</span><span data-l="en">What it does</span></h2>
+        <p class="attacco" data-l="it">Ogni modifica si può annullare. Accanto a ogni funzione trovi in quale versione c’è.</p>
+        <p class="attacco" data-l="en">Every change can be undone. Each feature shows which version includes it.</p>
+        <div class="legenda" aria-hidden="true">
+          <span class="etichetta etichetta-gratis"><span data-l="it">Gratis</span><span data-l="en">Free</span></span>
+          <span class="etichetta etichetta-pro">Pro</span>
+          <span class="etichetta etichetta-prova"><span data-l="it">Nella prova Pro</span><span data-l="en">In the Pro trial</span></span>
+        </div>
+      </div>
+
+      <div class="funzioni">
+        <article class="funzione">
+          <h3><span data-l="it">Controllo PC</span><span data-l="en">PC check</span></h3>
+          <div class="etichette">
+            <span class="etichetta etichetta-gratis"><span data-l="it">Gratis: il riepilogo</span><span data-l="en">Free: the summary</span></span>
+            <span class="etichetta etichetta-pro"><span data-l="it">Pro: i dettagli</span><span data-l="en">Pro: the details</span></span>
+          </div>
+          <p data-l="it">Legge il PC senza cambiare niente e ti dice cosa si può sistemare. Anche le cose che Windows non ti dice: il monitor attaccato alla scheda madre invece che alla scheda video, lo schermo fermo a 60 Hz quando può andare più veloce, la RAM che va più piano di quanto dichiarano i moduli, la scheda video collegata a x8 o x4 quando può usare x16.</p>
+          <p data-l="en">Reads your PC without changing anything and tells you what can be fixed. Including what Windows doesn’t tell you: a monitor plugged into the motherboard instead of the graphics card, a screen stuck at 60 Hz when it can go faster, RAM running slower than the modules are rated for, a graphics card linked at x8 or x4 when it can use x16.</p>
+        </article>
+
+        <article class="funzione">
+          <h3><span data-l="it">Ottimizzazione base</span><span data-l="en">Basic optimization</span></h3>
+          <div class="etichette"><span class="etichetta etichetta-gratis"><span data-l="it">Gratis</span><span data-l="en">Free</span></span></div>
+          <p data-l="it">Toglie dall’avvio i programmi che non servono subito, pulisce i file temporanei, mette il piano energetico al massimo, spegne widget, notizie e registrazione in background, e ti segnala gli altri ottimizzatori installati. Le cose che consigliano tutte le guide, fatte bene in un clic e annullabili.</p>
+          <p data-l="en">Takes programs you don’t need right away out of startup, cleans temporary files, sets the power plan to maximum, turns off widgets, news and background recording, and points out other optimizers you have installed. What every guide recommends, done properly in one click, and reversible.</p>
+        </article>
+
+        <article class="funzione">
+          <h3><span data-l="it">Torna come prima</span><span data-l="en">Undo all changes</span></h3>
+          <div class="etichette"><span class="etichetta etichetta-gratis"><span data-l="it">Gratis, sempre</span><span data-l="en">Free, always</span></span></div>
+          <p data-l="it">Rimette i valori esatti che c’erano prima, anche quando prima un valore non esisteva. Funziona sempre: senza internet, senza licenza e, con un programma a parte, anche se PERFORMANCE non si apre.</p>
+          <p data-l="en">Puts back the exact values you had before, even when a value didn’t exist before. It always works: offline, without a license and, through a separate program, even if PERFORMANCE won’t open.</p>
+        </article>
+
+        <article class="funzione">
+          <h3><span data-l="it">Modalità Gioco</span><span data-l="en">Play Mode</span></h3>
+          <div class="etichette">
+            <span class="etichetta etichetta-pro">Pro</span>
+            <span class="etichetta etichetta-prova"><span data-l="it">Nella prova</span><span data-l="en">In the trial</span></span>
+          </div>
+          <p data-l="it">Un tasto prima di giocare. Mette in pausa quello che non serve mentre giochi e chiude i programmi rimasti aperti, tranne quelli da cui togli la spunta. Giochi, anti-cheat, driver e i programmi di mouse, cuffie e luci non li tocca mai. Quando la spegni, torna tutto com’era.</p>
+          <p data-l="en">One button before you play. It pauses what you don’t need while gaming and closes programs left open, except the ones you untick. It never touches games, anti-cheat, drivers or the software for your mouse, headset and lights. Turn it off and everything goes back.</p>
+        </article>
+
+        <article class="funzione">
+          <h3><span data-l="it">Ripara danni</span><span data-l="en">Damage repair</span></h3>
+          <div class="etichette"><span class="etichetta etichetta-pro">Pro</span></div>
+          <p data-l="it">Trova le impostazioni cambiate da altri ottimizzatori o da guide prese in rete che fanno più male che bene, e le rimette a posto.</p>
+          <p data-l="en">Finds settings changed by other optimizers or by online guides that do more harm than good, and puts them right.</p>
+        </article>
+
+        <article class="funzione">
+          <h3><span data-l="it">Ottimizzazioni una per una</span><span data-l="en">One change at a time</span></h3>
+          <div class="etichette">
+            <span class="etichetta etichetta-pro">Pro</span>
+            <span class="etichetta etichetta-prova"><span data-l="it">In parte nella prova</span><span data-l="en">Partly in the trial</span></span>
+          </div>
+          <p data-l="it">Scegli tu, riga per riga, con la spiegazione e la fonte di ogni modifica: servizi (messi su Manuale, mai disattivati), schermo, mouse e tastiera, rete, audio, disco, attività pianificate.</p>
+          <p data-l="en">You choose, line by line, with the explanation and source of every change: services (set to Manual, never disabled), display, mouse and keyboard, network, audio, disk, scheduled tasks.</p>
+        </article>
+
+        <article class="funzione">
+          <h3><span data-l="it">Modalità Lavoro</span><span data-l="en">Work Mode</span></h3>
+          <div class="etichette"><span class="etichetta etichetta-pro">Pro</span></div>
+          <p data-l="it">Per render ed esportazioni: piano energetico al massimo, il PC col cavo non va in sospensione, pausa a quello che non serve per lavorare. Stampa, indicizzazione e i tuoi programmi di lavoro restano come sono.</p>
+          <p data-l="en">For renders and exports: maximum power plan, no sleep while plugged in, and a pause for whatever you don’t need to work. Printing, search indexing and your work programs stay as they are.</p>
+        </article>
+
+        <article class="funzione">
+          <h3><span data-l="it">Cronologia modifiche</span><span data-l="en">Change history</span></h3>
+          <div class="etichette"><span class="etichetta etichetta-pro"><span data-l="it">Pro: annulla una sola</span><span data-l="en">Pro: undo just one</span></span></div>
+          <p data-l="it">Ogni modifica è scritta con data e ora. Con il Pro ne annulli una sola, senza toccare le altre.</p>
+          <p data-l="en">Every change is logged with date and time. With Pro you undo a single one without touching the rest.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISURA -->
+  <section class="sezione" id="misura" aria-labelledby="titolo-misura">
+    <div class="riga misura">
+      <div class="misura-testo">
+        <h2 class="titolo-sezione" id="titolo-misura"><span data-l="it">Gli FPS li misuri tu.</span><span data-l="en">You measure your own FPS.</span></h2>
+        <p data-l="it">Ogni PC è diverso, quindi su questa pagina non trovi percentuali. Il bench del programma fa quattro misure: sul desktop e dentro il tuo gioco, prima e dopo l’ottimizzazione. In gioco ripeti la prova nello stesso posto, alla stessa ora e con lo stesso meteo, così il confronto regge.</p>
+        <p data-l="en">Every PC is different, so you won’t find percentages on this page. The program’s bench takes four measurements: on the desktop and inside your game, before and after optimizing. In game, repeat the run in the same spot, at the same time of day and with the same weather, so the comparison holds up.</p>
+        <p data-l="it">Il bench è nella versione gratuita.</p>
+        <p data-l="en">The bench is in the free version.</p>
+      </div>
+      <figure class="banco">
+        <div class="banco-griglia" role="img" aria-label="Bench: desktop e gioco, prima e dopo / Bench: desktop and game, before and after">
+          <span class="vuoto"></span>
+          <span class="banco-colonna"><span data-l="it">Prima</span><span data-l="en">Before</span></span>
+          <span class="banco-colonna"><span data-l="it">Dopo</span><span data-l="en">After</span></span>
+
+          <span class="banco-riga">Desktop</span>
+          <span class="banco-casella"><strong>– FPS</strong><span class="etichetta etichetta-fatto"><span data-l="it">Misurato</span><span data-l="en">Measured</span></span></span>
+          <span class="banco-casella"><strong>– FPS</strong><span class="etichetta etichetta-fatto"><span data-l="it">Misurato</span><span data-l="en">Measured</span></span></span>
+
+          <span class="banco-riga"><span data-l="it">Nel gioco</span><span data-l="en">In game</span></span>
+          <span class="banco-casella"><strong>– FPS</strong><span class="etichetta etichetta-fatto"><span data-l="it">Misurato</span><span data-l="en">Measured</span></span></span>
+          <span class="banco-casella da-fare"><strong>– FPS</strong><span class="etichetta etichetta-dafare"><span data-l="it">Da fare</span><span data-l="en">To do</span></span></span>
+        </div>
+        <figcaption><span data-l="it">Le quattro misure del bench. I numeri li scrive il tuo PC.</span><span data-l="en">The bench’s four measurements. Your PC writes the numbers.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- MAI -->
+  <section class="mai" aria-labelledby="titolo-mai">
+    <div class="riga">
+      <h2 class="mai-parola" id="titolo-mai"><span data-l="it">Mai</span><span data-l="en">Never</span></h2>
+      <ul class="mai-elenco">
+        <li><span data-l="it">toccare i file dei giochi o entrare nei loro processi, né in quelli degli anti-cheat.</span><span data-l="en">touch game files or get inside game processes, or anti-cheat ones.</span></li>
+        <li><span data-l="it">spegnere Microsoft Defender, il firewall o il controllo dell’account utente.</span><span data-l="en">turn off Microsoft Defender, the firewall or User Account Control.</span></li>
+        <li>
+          <span data-l="it">bloccare Windows Update.</span><span data-l="en">block Windows Update.</span>
+          <small><span data-l="it">La Modalità Gioco può metterlo in pausa al massimo 3 giorni, poi riparte da solo.</span><span data-l="en">Play Mode can pause it for 3 days at most, then it restarts by itself.</span></small>
+        </li>
+        <li><span data-l="it">pulire il registro o “svuotare la RAM”. Non serve.</span><span data-l="en">clean the registry or “free up RAM”. It doesn’t help.</span></li>
+        <li><span data-l="it">restare acceso in sottofondo. Si apre, fa il lavoro, si chiude.</span><span data-l="en">stay running in the background. It opens, does the job, closes.</span></li>
+        <li><span data-l="it">gonfiare i problemi. Quello che conta il Controllo PC è vero.</span><span data-l="en">inflate problems. What the PC check counts is real.</span></li>
+        <li><span data-l="it">promettere FPS.</span><span data-l="en">promise FPS.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PREZZI -->
+  <section class="sezione" id="prezzi" aria-labelledby="titolo-prezzi">
+    <div class="riga">
+      <div class="prezzi-testa">
+        <h2 class="titolo-sezione" id="titolo-prezzi"><span data-l="it">Gratis o Pro</span><span data-l="en">Free or Pro</span></h2>
+        <p class="attacco" data-l="it">Il gratuito resta gratuito. Il Pro si paga una volta e resta tuo su quel PC.</p>
+        <p class="attacco" data-l="en">Free stays free. Pro is paid once and stays yours on that PC.</p>
+      </div>
+
+      <div class="piani">
+        <div class="piano piano-gratis">
+          <div>
+            <h3 class="piano-nome"><span data-l="it">Gratis</span><span data-l="en">Free</span></h3>
+          </div>
+          <div>
+            <p class="piano-prezzo"><span data-l="it">0 €</span><span data-l="en">€0</span></p>
+            <p class="piano-prezzo-nota"><span data-l="it">Per sempre.</span><span data-l="en">Forever.</span></p>
+          </div>
+          <ul class="piano-elenco">
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Controllo PC con il riepilogo</span><span data-l="en">PC check with the summary</span></span></li>
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Ottimizzazione base</span><span data-l="en">Basic optimization</span></span></li>
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Bench prima e dopo</span><span data-l="en">Before and after bench</span></span></li>
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Torna come prima</span><span data-l="en">Undo all changes</span></span></li>
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Aggiornamenti, correzioni e sicurezza</span><span data-l="en">Updates, fixes and security</span></span></li>
+          </ul>
+          <div class="piano-coda">
+            <a class="tasto tasto-vuoto" href="#scarica"><span data-l="it">Scarica la beta</span><span data-l="en">Download the beta</span></a>
+          </div>
+        </div>
+
+        <div class="piano piano-pro">
+          <div>
+            <h3 class="piano-nome">Pro</h3>
+          </div>
+          <div>
+            <p class="piano-prezzo"><span data-l="it">9,90 €</span><span data-l="en">€9.90</span></p>
+            <p class="piano-prezzo-nota"><span data-l="it">Una volta. Per sempre su questo PC.</span><span data-l="en">Once. Forever on this PC.</span>
+              <!-- SEGNAPOSTO: scrivere se il prezzo include l'IVA, poi togliere questa nota. -->
+              <span class="segnaposto"><span data-l="it">IVA inclusa?</span><span data-l="en">VAT included?</span></span>
+            </p>
+          </div>
+          <ul class="piano-elenco">
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Tutto quello che c’è nel gratuito</span><span data-l="en">Everything in Free</span></span></li>
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Ogni ottimizzazione, una per una, con spiegazione e fonte</span><span data-l="en">Every optimization, one by one, with explanation and source</span></span></li>
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">I dettagli del Controllo PC e come sistemare</span><span data-l="en">The PC check details and how to fix them</span></span></li>
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Modalità Gioco e Modalità Lavoro</span><span data-l="en">Play Mode and Work Mode</span></span></li>
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Ripara danni</span><span data-l="en">Damage repair</span></span></li>
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Annulla una sola modifica dalla Cronologia</span><span data-l="en">Undo a single change from the history</span></span></li>
+            <li><svg aria-hidden="true"><use href="#spunta"/></svg><span><span data-l="it">Le funzioni nuove che escono nei 12 mesi dopo l’attivazione</span><span data-l="en">New features released in the 12 months after activation</span></span></li>
+          </ul>
+          <div class="piano-coda">
+            <button type="button" class="tasto tasto-pieno" id="tasto-acquista" disabled aria-describedby="nota-acquisto"><span data-l="it">Acquisto non ancora aperto</span><span data-l="en">Purchase not open yet</span></button>
+            <p id="nota-acquisto"><span data-l="it">Intanto puoi provare il Pro gratis dal programma. Correzioni e sicurezza arrivano sempre gratis, anche dopo i 12 mesi. Una licenza vale per un PC.</span><span data-l="en">Meanwhile you can try Pro for free from the program. Fixes and security always arrive for free, even after the 12 months. One license covers one PC.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prova" id="prova">
+        <div class="prova-testa">
+          <h3><span data-l="it">Prova il Pro per 7 giorni</span><span data-l="en">Try Pro for 7 days</span></h3>
+          <p data-l="it">Gratis. Non serve la carta e non ti addebitiamo nulla. Una prova per PC, la avvii dal programma.</p>
+          <p data-l="en">Free. No card needed and you won’t be charged. One trial per PC, started from the program.</p>
+        </div>
+        <div class="prova-punti">
+          <div>
+            <h4><span data-l="it">Cosa usi</span><span data-l="en">What you can use</span></h4>
+            <p data-l="it">Le ottimizzazioni Pro per giochi, schermo, aspetto di Windows, mouse e tastiera e avvio, più la Modalità Gioco e il bench. Il resto del Pro lo vedi ma resta chiuso, e le spiegazioni si sbloccano con il Pro.</p>
+            <p data-l="en">Pro optimizations for games, display, Windows appearance, mouse and keyboard and startup, plus Play Mode and the bench. You can see the rest of Pro but it stays locked, and the explanations unlock with Pro.</p>
+          </div>
+          <div>
+            <h4><span data-l="it">All’accensione del PC</span><span data-l="en">When you turn on your PC</span></h4>
+            <p data-l="it">Durante la prova il programma ti chiede il permesso di aprirsi (la normale domanda di Windows) per ricordarti quanti giorni mancano. Se rispondi No, non si apre.</p>
+            <p data-l="en">During the trial the program asks your permission to open (the normal Windows prompt) to remind you how many days are left. If you answer No, it doesn’t open.</p>
+          </div>
+          <div>
+            <h4><span data-l="it">A fine prova</span><span data-l="en">When the trial ends</span></h4>
+            <p data-l="it">Se non attivi il Pro, il programma rimette com’era solo quello che hai cambiato con il Pro durante la prova. Le ottimizzazioni gratuite restano.</p>
+            <p data-l="en">If you don’t activate Pro, the program undoes only what you changed with Pro during the trial. Free optimizations stay.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCARICA -->
+  <section class="sezione" id="scarica" aria-labelledby="titolo-scarica">
+    <div class="riga scarica">
+      <div class="scarica-box">
+        <h2 class="titolo-sezione" id="titolo-scarica"><span data-l="it">Scarica la beta</span><span data-l="en">Download the beta</span></h2>
+        <!-- SEGNAPOSTO: funziona solo quando mirkodls/performance-mdls-download e PUBBLICO e ha una Release con l'installatore
+             (lo stesso repository usato per gli aggiornamenti). Poi togliere la classe segnaposto. -->
+        <a class="tasto tasto-pieno tasto-grande segnaposto" href="https://github.com/mirkodls/performance-mdls-download/releases/latest" id="link-download">
+          <svg aria-hidden="true"><use href="#giu"/></svg>
+          <span data-l="it">Scarica PERFORMANCE</span><span data-l="en">Download PERFORMANCE</span>
+        </a>
+        <!-- SEGNAPOSTO: numero di versione del file. -->
+        <p class="file-nome">PERFORMANCE-<span class="segnaposto">0.0.0</span>-installazione.exe</p>
+        <div class="requisiti">
+          <p data-l="it">Windows 10 o 11 a 64 bit. Windows Server e la modalità S non sono supportati.</p>
+          <p data-l="en">64-bit Windows 10 or 11. Windows Server and S mode are not supported.</p>
+          <p data-l="it">È una beta e può avere difetti. Prima di ogni modifica il programma salva i valori di prima e prova a creare un punto di ripristino di Windows.</p>
+          <p data-l="en">It’s a beta and may have bugs. Before every change the program saves the previous values and tries to create a Windows restore point.</p>
+        </div>
+        <p class="solo-qui" data-l="it"><strong>Scarica il programma solo da questa pagina.</strong> Una copia presa altrove potrebbe non essere la nostra.</p>
+        <p class="solo-qui" data-l="en"><strong>Download the program only from this page.</strong> A copy taken from somewhere else may not be ours.</p>
+      </div>
+
+      <div class="guida">
+        <h3><span data-l="it">Windows ti mostra “Windows ha protetto il PC”?</span><span data-l="en">Does Windows show “Windows protected your PC”?</span></h3>
+        <p data-l="it">È normale: questa beta non ha ancora la firma digitale, quindi Windows non riconosce ancora il programma.</p>
+        <p data-l="en">This is normal: this beta does not have a digital signature yet, so Windows does not recognize the program yet.</p>
+
+        <ol class="passi">
+          <li><span data-l="it">Doppio clic sul file scaricato (<span class="file-in-riga">PERFORMANCE-&lt;versione&gt;-installazione.exe</span>).</span><span data-l="en">Double-click the downloaded file (<span class="file-in-riga">PERFORMANCE-&lt;version&gt;-installazione.exe</span>).</span></li>
+          <li><span data-l="it">Se compare la finestra blu “Windows ha protetto il PC”, clic su “Ulteriori informazioni”.</span><span data-l="en">If the blue “Windows protected your PC” window appears, click “More info”.</span></li>
+          <li><span data-l="it">Clic su “Esegui comunque”.</span><span data-l="en">Click “Run anyway”.</span></li>
+          <li><span data-l="it">Alla domanda “Vuoi consentire a questa app di apportare modifiche?” clic su “Sì”.</span><span data-l="en">When asked “Do you want to allow this app to make changes to your device?”, click “Yes”.</span></li>
+        </ol>
+
+        <figure class="schema">
+          <div class="finestra-blu" aria-hidden="true">
+            <b><span data-l="it">Windows ha protetto il PC</span><span data-l="en">Windows protected your PC</span></b>
+            <span class="barretta"></span>
+            <span class="barretta corta"></span>
+            <span class="finestra-collegamento">
+              <span data-l="it">Ulteriori informazioni</span><span data-l="en">More info</span>
+              <svg class="cerchio" viewBox="0 0 120 40" preserveAspectRatio="none"><path d="M10 24C5 12 34 4 64 4.5 96 5 116 12 114 22 112 33 84 38 55 37.5 25 37 6 31 8.5 20 10 13 22 8.5 34 7"/></svg>
+              <span class="numero-segno">2</span>
+            </span>
+            <span class="finestra-tasti"><span><span data-l="it">Non eseguire</span><span data-l="en">Don’t run</span></span></span>
+          </div>
+          <div class="finestra-blu" aria-hidden="true">
+            <b><span data-l="it">Windows ha protetto il PC</span><span data-l="en">Windows protected your PC</span></b>
+            <span class="barretta"></span>
+            <span class="barretta corta"></span>
+            <span class="barretta corta"></span>
+            <span class="finestra-tasti">
+              <span><span data-l="it">Esegui comunque</span><span data-l="en">Run anyway</span>
+                <svg class="cerchio" viewBox="0 0 120 40" preserveAspectRatio="none"><path d="M10 24C5 12 34 4 64 4.5 96 5 116 12 114 22 112 33 84 38 55 37.5 25 37 6 31 8.5 20 10 13 22 8.5 34 7"/></svg>
+                <span class="numero-segno">3</span>
+              </span>
+              <span><span data-l="it">Non eseguire</span><span data-l="en">Don’t run</span></span>
+            </span>
+          </div>
+          <figcaption><span data-l="it">Disegno semplificato della finestra di Windows, con i due punti da cliccare.</span><span data-l="en">Simplified drawing of the Windows window, with the two places to click.</span></figcaption>
+        </figure>
+
+        <div class="avviso-sac" role="note">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 10v4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17.2" r="1.2" fill="currentColor"/></svg>
+          <div>
+            <h4><span data-l="it">Windows dice “Smart App Control ha bloccato un’app”?</span><span data-l="en">Does Windows say “Smart App Control blocked an app”?</span></h4>
+            <p data-l="it">Su quel PC la beta per ora non si può installare. Non disattivare Smart App Control per installarla: è una protezione di Windows e, una volta spenta, non si riaccende senza reinstallare Windows.</p>
+            <p data-l="en">For now the beta cannot be installed on that PC. Do not turn off Smart App Control to install it: it is a Windows protection and, once turned off, it cannot be turned back on without reinstalling Windows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOMANDE -->
+  <section class="sezione" id="domande" aria-labelledby="titolo-domande">
+    <div class="riga domande">
+      <h2 class="titolo-sezione" id="titolo-domande"><span data-l="it">Domande</span><span data-l="en">Questions</span></h2>
+      <div class="domande-elenco">
+        <details>
+          <summary><span><span data-l="it">Quanti FPS in più avrò?</span><span data-l="en">How many more FPS will I get?</span></span><span class="piu" aria-hidden="true"></span></summary>
+          <div>
+            <p data-l="it">Non lo sa nessuno prima di misurare il tuo PC. Dipende da cosa gira in sottofondo, dal gioco e dall’hardware. Per questo c’è il bench: misuri, ottimizzi, misuri di nuovo.</p>
+            <p data-l="en">Nobody knows before measuring your PC. It depends on what runs in the background, the game and the hardware. That’s why there’s the bench: measure, optimize, measure again.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span><span data-l="it">Va bene con i giochi online e gli anti-cheat?</span><span data-l="en">Is it fine with online games and anti-cheat?</span></span><span class="piu" aria-hidden="true"></span></summary>
+          <div>
+            <p data-l="it">PERFORMANCE cambia solo impostazioni di Windows. Non tocca i file dei giochi e non entra nei processi dei giochi né degli anti-cheat. La Modalità Gioco non chiude mai giochi e anti-cheat, e non chiude un launcher se un suo gioco è aperto.</p>
+            <p data-l="en">PERFORMANCE only changes Windows settings. It doesn’t touch game files and doesn’t get inside game or anti-cheat processes. Play Mode never closes games or anti-cheat, and doesn’t close a launcher while one of its games is open.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span><span data-l="it">E se qualcosa non mi piace?</span><span data-l="en">What if I don’t like something?</span></span><span class="piu" aria-hidden="true"></span></summary>
+          <div>
+            <p data-l="it">Premi Torna come prima: rimette i valori esatti di prima ed è gratis per sempre. Con il Pro puoi anche annullare una sola modifica dalla Cronologia.</p>
+            <p data-l="en">Press Undo all changes: it puts back the exact previous values and is free forever. With Pro you can also undo a single change from the history.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span><span data-l="it">Resta acceso e consuma risorse?</span><span data-l="en">Does it keep running and use resources?</span></span><span class="piu" aria-hidden="true"></span></summary>
+          <div>
+            <p data-l="it">No. Si apre, fa il lavoro e si chiude. Solo durante la prova Pro chiede di aprirsi all’accensione del PC per ricordarti i giorni rimasti, e puoi dire di no.</p>
+            <p data-l="en">No. It opens, does the job and closes. Only during the Pro trial does it ask to open when you turn on the PC, to remind you of the days left, and you can say no.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span><span data-l="it">Funziona su un PC del lavoro?</span><span data-l="en">Does it work on a work PC?</span></span><span class="piu" aria-hidden="true"></span></summary>
+          <div>
+            <p data-l="it">Sì, con un avviso prima di cambiare qualcosa. Le impostazioni decise dall’azienda non le tocca e te le mostra come “gestite dall’azienda”.</p>
+            <p data-l="en">Yes, with a warning before changing anything. It doesn’t touch settings decided by your company and shows them as “managed by your organization”.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span><span data-l="it">Cosa succede al Pro dopo 12 mesi?</span><span data-l="en">What happens to Pro after 12 months?</span></span><span class="piu" aria-hidden="true"></span></summary>
+          <div>
+            <p data-l="it">Il Pro resta tuo per sempre su quel PC, con tutte le funzioni uscite fino a quel giorno. Correzioni e sicurezza continuano ad arrivare gratis. Le funzioni nuove uscite dopo si aggiungono a parte.</p>
+            <p data-l="en">Pro stays yours forever on that PC, with every feature released up to that day. Fixes and security keep arriving for free. Features released later are added separately.</p>
+          </div>
+        </details>
+        <details>
+          <summary><span><span data-l="it">Va su Windows 7 o 8?</span><span data-l="en">Does it run on Windows 7 or 8?</span></span><span class="piu" aria-hidden="true"></span></summary>
+          <div>
+            <p data-l="it">No. Solo Windows 10 e 11 a 64 bit.</p>
+            <p data-l="en">No. Only 64-bit Windows 10 and 11.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="piede">
+  <div class="riga">
+    <div class="piede-alto">
+      <a class="marchio" href="#inizio">
+        <svg aria-hidden="true"><use href="#logo"/></svg>
+        <span class="marchio-nome">PERFORMANCE<span class="marchio-di">by mdls</span></span>
+      </a>
+      <!-- SEGNAPOSTO: pagine legali da pubblicare. Percorsi RELATIVI: ogni pagina e una cartella con index.html. -->
+      <nav class="piede-voci" aria-label="Documenti / Documents">
+        <a class="segnaposto" data-it="privacy/" data-en="en/privacy/" href="privacy/">Privacy</a>
+        <a class="segnaposto" data-it="cookie/" data-en="en/cookie/" href="cookie/">Cookie</a>
+        <a class="segnaposto" data-it="termini/" data-en="en/terms/" href="termini/"><span data-l="it">Condizioni d’uso (EULA)</span><span data-l="en">Terms of use (EULA)</span></a>
+        <a class="segnaposto" data-it="vendita/" data-en="en/sale/" href="vendita/"><span data-l="it">Condizioni di vendita</span><span data-l="en">Terms of sale</span></a>
+        <a class="segnaposto" data-it="rimborsi/" data-en="en/refunds/" href="rimborsi/"><span data-l="it">Rimborsi</span><span data-l="en">Refunds</span></a>
+        <a class="segnaposto" data-it="responsabilita/" data-en="en/disclaimer/" href="responsabilita/"><span data-l="it">Esclusione di responsabilità</span><span data-l="en">Disclaimer</span></a>
+        <!-- SEGNAPOSTO: email pubblica del programma (da creare). -->
+        <span class="segnaposto"><span data-l="it">Contatti</span><span data-l="en">Contact</span></span>
+      </nav>
+    </div>
+    <div class="piede-basso">
+      <p data-l="it">Questo sito non usa cookie e non raccoglie dati di navigazione.</p>
+      <p data-l="en">This site uses no cookies and collects no browsing data.</p>
+      <p data-l="it">Windows, Xbox e Microsoft Defender sono marchi di Microsoft. Steam e Discord sono marchi dei rispettivi proprietari. PERFORMANCE non è collegato a Microsoft.</p>
+      <p data-l="en">Windows, Xbox and Microsoft Defender are trademarks of Microsoft. Steam and Discord are trademarks of their respective owners. PERFORMANCE is not affiliated with Microsoft.</p>
+      <p>© 2026 mdls</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var radice = document.documentElement;
+    var testiStato = {
+      it: {
+        iniziale: "Esempio su Windows 11. Premi Ottimizza.",
+        ottimizzato: "6 impostazioni cambiate. I valori di prima sono salvati.",
+        ripristinato: "Tutto com’era, valore per valore."
+      },
+      en: {
+        iniziale: "Example on Windows 11. Press Optimize.",
+        ottimizzato: "6 settings changed. The previous values are saved.",
+        ripristinato: "Everything as it was, value by value."
+      }
+    };
+
+    var registro = document.getElementById("registro");
+    var tastoOttimizza = document.getElementById("tasto-ottimizza");
+    var tastoTorna = document.getElementById("tasto-torna");
+    var riga = document.getElementById("registro-stato");
+
+    function lingua() { return radice.getAttribute("data-lingua") === "en" ? "en" : "it"; }
+
+    function scriviStato() {
+      var s = registro.getAttribute("data-stato") || "iniziale";
+      riga.textContent = testiStato[lingua()][s];
+    }
+
+    function impostaLingua(l) {
+      radice.setAttribute("data-lingua", l);
+      radice.lang = l;
+      document.querySelectorAll("[data-imposta-lingua]").forEach(function (b) {
+        b.setAttribute("aria-pressed", b.getAttribute("data-imposta-lingua") === l ? "true" : "false");
+      });
+      document.querySelectorAll("a[data-it][data-en]").forEach(function (a) {
+        a.setAttribute("href", a.getAttribute("data-" + l));
+      });
+      scriviStato();
+    }
+
+    document.querySelectorAll("[data-l]").forEach(function (el) { el.lang = el.getAttribute("data-l"); });
+    document.querySelectorAll("[data-imposta-lingua]").forEach(function (b) {
+      b.addEventListener("click", function () { impostaLingua(b.getAttribute("data-imposta-lingua")); });
+    });
+
+    function vaiA(stato) {
+      registro.setAttribute("data-stato", stato);
+      tastoOttimizza.disabled = stato === "ottimizzato";
+      tastoTorna.disabled = stato !== "ottimizzato";
+      scriviStato();
+    }
+    tastoOttimizza.addEventListener("click", function () { vaiA("ottimizzato"); tastoTorna.focus(); });
+    tastoTorna.addEventListener("click", function () { vaiA("ripristinato"); tastoOttimizza.focus(); });
+
+    impostaLingua(lingua());
+  })();
+</script>
